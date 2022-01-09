@@ -1,0 +1,2 @@
+RewriteEngine On # Turn on the rewriting engine
+RewriteRule ^command/?$ command.php [NC,L]

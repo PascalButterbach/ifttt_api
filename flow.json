@@ -1,0 +1,400 @@
+[
+  {
+    "id": "a1ae944167a1bc7c",
+    "type": "tab",
+    "label": "Flow 1",
+    "disabled": false,
+    "info": "",
+    "env": []
+  },
+  {
+    "id": "b8285d3891f8b6ec",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "echo 'standby 0.0.0.0' | cec-client -s -d 1",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": true,
+    "oldrc": false,
+    "name": "TV OFF",
+    "x": 700,
+    "y": 200,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "04657c816df95896",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "echo 'on 0.0.0.0' | cec-client -s -d 1",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": false,
+    "oldrc": false,
+    "name": "TV ON",
+    "x": 690,
+    "y": 140,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "2565f5fc3dabdc02",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "env -i bash -c \"DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' playerctl pause\"",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": true,
+    "oldrc": false,
+    "name": "VIDEO STOP",
+    "x": 720,
+    "y": 260,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "4a4f6067ae83181c",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "env -i bash -c \"DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' playerctl play\"",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": true,
+    "oldrc": false,
+    "name": "VIDEO PLAY",
+    "x": 710,
+    "y": 320,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "1f1598371273606c",
+    "type": "switch",
+    "z": "a1ae944167a1bc7c",
+    "name": "COMMAND",
+    "property": "payload.command",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "AN",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "AUS",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "STOP",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "PAUSE",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "PLAY",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "WEITER",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "LAUTER",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "LEISER",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "TON AUS",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "TON AN",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 10,
+    "x": 490,
+    "y": 280,
+    "wires": [
+      [
+        "04657c816df95896"
+      ],
+      [
+        "b8285d3891f8b6ec"
+      ],
+      [
+        "2565f5fc3dabdc02"
+      ],
+      [
+        "2565f5fc3dabdc02"
+      ],
+      [
+        "4a4f6067ae83181c"
+      ],
+      [
+        "4a4f6067ae83181c"
+      ],
+      [
+        "2feda2b2b0682397"
+      ],
+      [
+        "a6bdcd8e5018c7c2"
+      ],
+      [
+        "54921914ef943f23"
+      ],
+      [
+        "1020bb9da5a30615"
+      ]
+    ]
+  },
+  {
+    "id": "7d4392de46063372",
+    "type": "debug",
+    "z": "a1ae944167a1bc7c",
+    "name": "debug payload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 420,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "2feda2b2b0682397",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "XDG_RUNTIME_DIR=/run/user/1000 amixer set 'Master' 10%+ unmute",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": true,
+    "oldrc": false,
+    "name": "LAUTER",
+    "x": 700,
+    "y": 380,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "a6bdcd8e5018c7c2",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "XDG_RUNTIME_DIR=/run/user/1000 amixer set 'Master' 10%- unmute",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": true,
+    "oldrc": false,
+    "name": "LEISER",
+    "x": 700,
+    "y": 440,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "54921914ef943f23",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "XDG_RUNTIME_DIR=/run/user/1000 amixer set 'Master' mute",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": false,
+    "oldrc": false,
+    "name": "TON AUS",
+    "x": 700,
+    "y": 500,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "1020bb9da5a30615",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "XDG_RUNTIME_DIR=/run/user/1000 amixer set 'Master' unmute",
+    "addpay": "",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": false,
+    "oldrc": false,
+    "name": "TON AN",
+    "x": 700,
+    "y": 560,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "07a94ef64ddb8d28",
+    "type": "switch",
+    "z": "a1ae944167a1bc7c",
+    "name": "",
+    "property": "$number(msg.payload.value)",
+    "propertyType": "jsonata",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "-1",
+        "vt": "str"
+      },
+      {
+        "t": "btwn",
+        "v": "0",
+        "vt": "num",
+        "v2": "100",
+        "v2t": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 290,
+    "y": 300,
+    "wires": [
+      [
+        "1f1598371273606c"
+      ],
+      [
+        "f147376fadfb0f50"
+      ]
+    ]
+  },
+  {
+    "id": "3095a44db82e0573",
+    "type": "exec",
+    "z": "a1ae944167a1bc7c",
+    "command": "XDG_RUNTIME_DIR=/run/user/1000 amixer set 'Master' ",
+    "addpay": "payload",
+    "append": "",
+    "useSpawn": "false",
+    "timer": "",
+    "winHide": false,
+    "oldrc": false,
+    "name": "TON #N",
+    "x": 480,
+    "y": 420,
+    "wires": [
+      [],
+      [],
+      []
+    ]
+  },
+  {
+    "id": "f147376fadfb0f50",
+    "type": "function",
+    "z": "a1ae944167a1bc7c",
+    "name": "APPEND %",
+    "func": "\nreturn {\n    payload: msg.payload.value + \"%\"\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 310,
+    "y": 420,
+    "wires": [
+      [
+        "3095a44db82e0573"
+      ]
+    ]
+  },
+  {
+    "id": "7607c66599ce583f",
+    "type": "http request",
+    "z": "a1ae944167a1bc7c",
+    "name": "msg.payload",
+    "method": "GET",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://ifttt.butterbach.org/controller/command",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "senderr": false,
+    "x": 270,
+    "y": 220,
+    "wires": [
+      [
+        "07a94ef64ddb8d28",
+        "7d4392de46063372"
+      ]
+    ]
+  },
+  {
+    "id": "c7756cb8bdcde474",
+    "type": "inject",
+    "z": "a1ae944167a1bc7c",
+    "name": "",
+    "props": [],
+    "repeat": "1",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "x": 150,
+    "y": 160,
+    "wires": [
+      [
+        "7607c66599ce583f"
+      ]
+    ]
+  }
+]
